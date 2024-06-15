@@ -1,0 +1,47 @@
+.header {
+  background-color: #151515;
+}
+
+.logo {
+  border-radius: 5px;
+}
+
+.footy {
+  background-color: #000012;
+  background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
+}
+
+.news {
+  background-color: #31363f;
+  background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
+}
+
+.new {
+  background-color: white;
+}
+
+.footer {
+  background-color: #3795bd;
+}
+
+.blog {
+  background-color: #000012;
+  background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
+}
+
+.blogText {
+  color: white;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.nba {
+  background-color: #31363f;
+  background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
+}
