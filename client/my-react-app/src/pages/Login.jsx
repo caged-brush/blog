@@ -30,7 +30,7 @@ function Login({ setAuth }) {
     e.preventDefault();
     try {
       const body = { email, password };
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -50,7 +50,7 @@ function Login({ setAuth }) {
   };
 
   const handleGoogleAuth = () => {
-    window.location.href = "http://localhost:3000/auth/google";
+    window.location.href = "/auth/google";
   };
 
   const extractTokenFromUrl = () => {};

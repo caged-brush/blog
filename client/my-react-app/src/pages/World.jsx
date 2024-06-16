@@ -7,7 +7,7 @@ function World({ setAuth, isAuthenticated }) {
 
   const getNews = async () => {
     try {
-      const response = await fetch("http://localhost:3000/news");
+      const response = await fetch("/news");
       const jsonData = await response.json();
       setNews(jsonData.articles);
     } catch (error) {

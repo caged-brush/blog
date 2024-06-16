@@ -6,9 +6,9 @@ export default function Football() {
 
   const getFootball = async () => {
     try {
-      const response = await fetch("http://localhost:3000/footy");
+      const response = await fetch("/footy");
       const jsonData = await response.json();
-
+      console.log(jsonData);
       setFootball(jsonData.response.slice(0, 2));
     } catch (err) {
       console.error(err.message);

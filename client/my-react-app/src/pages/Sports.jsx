@@ -9,7 +9,7 @@ export default function Sports({ setAuth, isAuthenticated }) {
 
   const getFootball = async () => {
     try {
-      const response = await fetch("http://localhost:3000/footy");
+      const response = await fetch("/footy");
       const jsonData = await response.json();
 
       setFootball(jsonData.response.slice(0, 4));

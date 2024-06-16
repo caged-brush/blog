@@ -5,7 +5,7 @@ export default function BlogPost() {
 
   async function getPost() {
     try {
-      const response = await fetch("http://localhost:3000/posts");
+      const response = await fetch("/posts");
       const jsonData = await response.json(response);
       setPost(jsonData);
     } catch (error) {

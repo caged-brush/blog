@@ -5,7 +5,7 @@ export default function NBA() {
 
   async function getNba() {
     try {
-      const result = await fetch("http://localhost:3000/nba");
+      const result = await fetch("/nba");
       const response = await result.json();
       setNba(response.data.slice(0, 30));
     } catch (err) {

@@ -6,7 +6,7 @@ export default function NEWS() {
 
   const getNews = async () => {
     try {
-      const response = await fetch("http://localhost:3000/news");
+      const response = await fetch("/news");
       const jsonData = await response.json();
       setNews(jsonData.articles.slice(0, 2));
     } catch (error) {

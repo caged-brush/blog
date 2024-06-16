@@ -9,9 +9,10 @@ import session from "express-session";
 import GoogleStrategy from "passport-google-oauth2";
 import passport from "passport";
 import jwt from "jsonwebtoken";
+import path from "path";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const saltRounds = 10;
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.SESSION_SECRET, { expiresIn: "3d" });
@@ -31,6 +32,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/my-react-app/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.join(__dirname, "client/my-react-app/dist", "index.html")
+    );
+  });
+}
 
 function validateUserInput(req, res, next) {
   const { fname, lname, email, password, confirm } = req.body;
@@ -89,13 +99,20 @@ async function authenticateJWT(req, res, next) {
   }
 }
 
-const db = new pg.Client({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT,
-});
+const proConfig = {
+  connectionString: process.env.DATABASE_URL,
+};
+const db = new pg.Client(
+  process.env.NODE_ENV === "production"
+    ? proConfig
+    : {
+        user: process.env.PG_USER,
+        host: process.env.PG_HOST,
+        database: process.env.PG_DATABASE,
+        password: process.env.PG_PASSWORD,
+        port: process.env.PG_PORT,
+      }
+);
 db.connect();
 
 app.get("/isVerified", authenticateJWT, async (req, res) => {
@@ -150,18 +167,6 @@ app.get("/news", async (req, res) => {
   try {
     const result = await axios.get(
       `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEWS}`
-    );
-    res.json(result.data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-app.get("/nyt", async (req, res) => {
-  try {
-    const result = await axios.get(
-      `https://api.nytimes.com/svc/archive/v1/2024/1.json?api-key=${process.env.NYT}`
     );
     res.json(result.data);
   } catch (error) {
@@ -385,6 +390,10 @@ passport.deserializeUser((user, cb) => {
   cb(null, user);
 });
 
+app.get("*", (req, res) => {
+  res.send("Page not found");
+});
+
 app.listen(port, (req, res) => {
-  console.log(`Server now listening on port`);
+  console.log(`Server now listening on port ${port}`);
 });

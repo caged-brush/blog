@@ -17,7 +17,7 @@ function Post({ setAuth, isAuthenticated }) {
     e.preventDefault();
     try {
       const body = { title, content };
-      const response = await fetch("http://localhost:3000/blog", {
+      const response = await fetch("/blog", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
