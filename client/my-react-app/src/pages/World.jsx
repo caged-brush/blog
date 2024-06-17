@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import NEWS from "../components/NEWS";
+import Footer from "../components/Footer";
 
 function World({ setAuth, isAuthenticated }) {
   const [news, setNews] = useState([]);
@@ -66,6 +67,7 @@ function World({ setAuth, isAuthenticated }) {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

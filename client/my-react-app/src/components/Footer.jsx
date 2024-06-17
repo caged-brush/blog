@@ -4,8 +4,8 @@ import Instagram from "../assets/ig.png";
 export default function Footer() {
   return (
     <>
-      <footer class=" footer d-flex flex-wrap justify-content-between align-items-center py-3  border-top">
-        <div class="col-md-4 d-flex align-items-center">
+      <footer class=" footer d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+        <div class="col-md-4 d-flex mt-0 py-0 align-items-center">
           <a
             href="/"
             class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1"

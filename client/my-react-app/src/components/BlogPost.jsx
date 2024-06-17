@@ -26,7 +26,6 @@ export default function BlogPost() {
             <p className="blog-post-meta blogText">
               {posts.date} by {posts.fname}, {posts.lname}
             </p>
-
             <p className="blogText">{posts.post}</p>
             <hr />
           </article>
