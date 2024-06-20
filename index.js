@@ -27,7 +27,13 @@ app.use(
   })
 );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Add your frontend URL here
+    credentials: true,
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -272,7 +278,6 @@ app.get(
     }
   }
 );
-
 app.post("/register", validateUserInput, async (req, res) => {
   const { fname, lname, email, password } = req.body;
 
@@ -397,4 +402,3 @@ app.get("*", (req, res) => {
 app.listen(port, (req, res) => {
   console.log(`Server now listening on port ${port}`);
 });
-

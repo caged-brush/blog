@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-import React from "react";
-import Google from "../assets/google.png";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import eye from "../assets/eye-icon.jpeg";
 import slash from "../assets/slash-eye.jpg";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import Google from "../assets/google.png";
 
 function Login({ setAuth }) {
   const [inputs, setInputs] = useState({
@@ -15,6 +14,17 @@ function Login({ setAuth }) {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const token = new URLSearchParams(location.search).get("token");
+    console.log('URL Search Params:', location.search);
+    console.log('Extracted Token:', token);
+    if (token) {
+      localStorage.setItem("token", token);
+      setAuth(true);
+      navigate("/");
+    }
+  }, [location.search, setAuth, navigate]);
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -50,15 +60,8 @@ function Login({ setAuth }) {
   };
 
   const handleGoogleAuth = () => {
-    window.location.href = "/auth/google";
+    window.location.href = "/auth/google/";
   };
-
-  const extractTokenFromUrl = () => {};
-
-  useEffect(() => {
-    console.log("Location changed:", location.search);
-    extractTokenFromUrl();
-  }, [location.search]);
 
   return (
     <>
