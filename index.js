@@ -278,6 +278,7 @@ app.get(
     }
   }
 );
+
 app.post("/register", validateUserInput, async (req, res) => {
   const { fname, lname, email, password } = req.body;
 

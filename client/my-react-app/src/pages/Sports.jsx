@@ -3,6 +3,7 @@ import React from "react";
 import Header from "../components/Header";
 import NBA from "../components/NBA";
 import Footer from "../components/Footer";
+import parse from "html-react-parser";
 
 export default function Sports({ setAuth, isAuthenticated }) {
   const [football, setFootball] = useState([]);
@@ -12,7 +13,7 @@ export default function Sports({ setAuth, isAuthenticated }) {
       const response = await fetch("/footy");
       const jsonData = await response.json();
 
-      setFootball(jsonData.response.slice(0, 4));
+      setFootball(jsonData.response.slice(0, 6));
     } catch (err) {
       console.error(err.message);
     }
@@ -21,6 +22,7 @@ export default function Sports({ setAuth, isAuthenticated }) {
   useEffect(() => {
     getFootball();
   }, []);
+
   return (
     <>
       <Header setAuth={setAuth} isAuthenticated={isAuthenticated} />
@@ -29,15 +31,9 @@ export default function Sports({ setAuth, isAuthenticated }) {
           {football.map((match, index) => (
             <div key={index} className="col mb-4">
               <div
-                className=" container card shadow-sm"
+                className="container card shadow-sm"
                 style={{ maxWidth: "500px" }}
               >
-                <img
-                  src={match.thumbnail}
-                  className="card-img-top"
-                  alt={match.title}
-                  style={{ maxHeight: "200px", objectFit: "cover" }}
-                />
                 <div className="card-body" style={{ padding: "10px" }}>
                   <h1
                     className="display-6 fw-bold text-body-emphasis"
@@ -45,12 +41,14 @@ export default function Sports({ setAuth, isAuthenticated }) {
                   >
                     {match.title}
                   </h1>
+                  <div>{parse(match.videos[0].embed)}</div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
       <NBA />
       <Footer />
     </>

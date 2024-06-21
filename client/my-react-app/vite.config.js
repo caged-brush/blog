@@ -41,6 +41,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/auth\/google/, "/auth/google"),
       },
+      "/blog": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/blog/, "/blog"),
+      },
     },
   },
 });
